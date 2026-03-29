@@ -1,4 +1,4 @@
-FROM node:22-slim AS builder
+FROM node:24-alpine AS builder
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
@@ -23,7 +23,7 @@ COPY tsconfig.base.json ./
 RUN pnpm turbo build --filter=@taminal/server
 
 # --- 런타임 ---
-FROM node:22-slim
+FROM node:24-alpine
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
