@@ -1,3 +1,5 @@
+import { base64ToBuffer, bufferToBase64 } from "./buffer-utils"
+
 const IV_LENGTH = 12
 
 /**
@@ -76,18 +78,4 @@ export class WsCrypto {
     )
     return new TextDecoder().decode(plaintext)
   }
-}
-
-function bufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
-  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer)
-  return btoa(String.fromCharCode(...bytes))
-}
-
-function base64ToBuffer(base64: string): ArrayBuffer {
-  const binary = atob(base64)
-  const bytes = new Uint8Array(binary.length)
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i)
-  }
-  return bytes.buffer as ArrayBuffer
 }

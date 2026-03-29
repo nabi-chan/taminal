@@ -1,10 +1,9 @@
 import type { ConnectionInfo } from "@/components/terminal/use-terminal"
-import type { IDBPDatabase } from "idb"
 
 import { Store } from "@tanstack/store"
-import { openDB } from "idb"
 
 import { loadCredential, removeCredential, saveCredential } from "./credential-store"
+import { getDb } from "./idb"
 
 // --- 타입 ---
 
@@ -99,19 +98,7 @@ function updateActiveTab(ws: WorkspaceItem, updater: (tab: TabItem) => TabItem):
 
 // --- IndexedDB 영속화 ---
 
-const DB_NAME = "taminal"
-const DB_VERSION = 5
 const STORE_NAME = "workspaces"
-
-function getDb(): Promise<IDBPDatabase> {
-  return openDB(DB_NAME, DB_VERSION, {
-    upgrade(db) {
-      if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME)
-      if (!db.objectStoreNames.contains("credentials")) db.createObjectStore("credentials")
-      if (!db.objectStoreNames.contains("profiles")) db.createObjectStore("profiles")
-    },
-  })
-}
 
 interface StoredTerminal {
   id: string

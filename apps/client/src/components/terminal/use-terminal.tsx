@@ -1,4 +1,4 @@
-import type { EncryptedMessage } from "@taminal/protocol"
+import type { EncryptedMessage, ServerMessage } from "@taminal/protocol"
 import { isControlMessage, parseControlMessage } from "@taminal/protocol"
 import { useCallback, useEffect, useRef } from "react"
 
@@ -51,7 +51,7 @@ export function useTerminal(options: UseTerminalOptions) {
     if (terminalRef.current && readyRef.current) {
       // escape sequence 밖의 replacement character(U+FFFD)만 공백으로 대체
       // eslint-disable-next-line no-control-regex
-      const filtered = data.replace(/\uFFFD(?![^\x1b]*[\x40-\x7e])/g, " ")
+      const filtered = data.replace(/\uFFFD(?![^\x1b]*[\x40-\x7e])/g, "\u200B")
       terminalRef.current.write(filtered)
     }
   }, [])
@@ -87,20 +87,19 @@ export function useTerminal(options: UseTerminalOptions) {
       }
 
       if (isControlMessage(decrypted)) {
-        const msg = parseControlMessage(decrypted)
+        const msg = parseControlMessage<ServerMessage>(decrypted)
         if (!msg) return
         switch (msg.type) {
           case "connected":
           case "attached": {
             connectedRef.current = true
-            const sid = (msg as { sessionId: string }).sessionId
-            if (sid) {
-              setTerminalSessionId(optionsRef.current.workspaceId, optionsRef.current.terminalId, sid)
+            if (msg.sessionId) {
+              setTerminalSessionId(optionsRef.current.workspaceId, optionsRef.current.terminalId, msg.sessionId)
             }
             break
           }
           case "error":
-            writeToTerminal(`\r\n\x1b[31m오류: ${(msg as { message: string }).message}\x1b[0m\r\n`)
+            writeToTerminal(`\r\n\x1b[31m오류: ${msg.message}\x1b[0m\r\n`)
             break
           case "disconnected":
             connectedRef.current = false
@@ -179,6 +178,8 @@ export function useTerminal(options: UseTerminalOptions) {
   // 터미널 초기화 + WS 연결
   useEffect(() => {
     let disposed = false
+    let cleanupFn: (() => void) | undefined
+
     if (!containerRef.current) return
 
     const container = containerRef.current
@@ -296,8 +297,6 @@ export function useTerminal(options: UseTerminalOptions) {
         term.dispose()
       }
     })
-
-    let cleanupFn: (() => void) | undefined
 
     return () => {
       disposed = true

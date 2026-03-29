@@ -1,7 +1,6 @@
 import type { ConnectionInfo } from "@/components/terminal/use-terminal"
-import type { IDBPDatabase } from "idb"
 
-import { openDB } from "idb"
+import { getDb } from "./idb"
 
 export interface ConnectionProfile {
   id: string
@@ -9,19 +8,7 @@ export interface ConnectionProfile {
   connectionInfo: ConnectionInfo
 }
 
-const DB_NAME = "taminal"
-const DB_VERSION = 5
 const STORE_NAME = "profiles"
-
-function getDb(): Promise<IDBPDatabase> {
-  return openDB(DB_NAME, DB_VERSION, {
-    upgrade(db) {
-      if (!db.objectStoreNames.contains("workspaces")) db.createObjectStore("workspaces")
-      if (!db.objectStoreNames.contains("credentials")) db.createObjectStore("credentials")
-      if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME)
-    },
-  })
-}
 
 export async function listProfiles(): Promise<ConnectionProfile[]> {
   const db = await getDb()

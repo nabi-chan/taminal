@@ -1,9 +1,6 @@
-import type { IDBPDatabase } from "idb"
+import { base64ToBuffer, bufferToBase64 } from "./buffer-utils"
+import { getDb } from "./idb"
 
-import { openDB } from "idb"
-
-const DB_NAME = "taminal"
-const DB_VERSION = 5
 const STORE_NAME = "credentials"
 
 interface StoredCredential {
@@ -45,30 +42,6 @@ async function getEncryptionKey(): Promise<CryptoKey> {
     ["encrypt", "decrypt"],
   )
   return cachedKey
-}
-
-function getDb(): Promise<IDBPDatabase> {
-  return openDB(DB_NAME, DB_VERSION, {
-    upgrade(db) {
-      if (!db.objectStoreNames.contains("workspaces")) db.createObjectStore("workspaces")
-      if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME)
-      if (!db.objectStoreNames.contains("profiles")) db.createObjectStore("profiles")
-    },
-  })
-}
-
-function bufferToBase64(buffer: ArrayBuffer | Uint8Array): string {
-  const bytes = buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer)
-  return btoa(String.fromCharCode(...bytes))
-}
-
-function base64ToBuffer(base64: string): ArrayBuffer {
-  const binary = atob(base64)
-  const bytes = new Uint8Array(binary.length)
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i)
-  }
-  return bytes.buffer as ArrayBuffer
 }
 
 export async function saveCredential(terminalId: string, data: CredentialData): Promise<void> {
