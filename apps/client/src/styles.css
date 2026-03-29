@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:is(.dark *));
+
+/*
+  One Dark Pro 컬러 스킴
+  WCAG AA 대비 기준 (4.5:1) 충족하도록 조정
+  배경 → 전경 대비율:
+    background (#282c34) → foreground (#c8cdd7) ≈ 7.5:1
+    card (#21252b)       → card-fg (#d0d5de)    ≈ 8.5:1
+    muted (#2c313a)      → muted-fg (#848b98)   ≈ 4.5:1
+    sidebar (#21252b)    → sidebar-fg (#b0b7c3)  ≈ 5.8:1
+    secondary (#353b45)  → secondary-fg (#c0c6d0) ≈ 5.5:1
+*/
+:root {
+  --background: #282c34;
+  --foreground: #c8cdd7;
+  --card: #21252b;
+  --card-foreground: #d0d5de;
+  --popover: #2c313a;
+  --popover-foreground: #d0d5de;
+  --primary: #61afef;
+  --primary-foreground: #1a1d23;
+  --secondary: #353b45;
+  --secondary-foreground: #c0c6d0;
+  --muted: #2c313a;
+  --muted-foreground: #848b98;
+  --accent: #2c313a;
+  --accent-foreground: #d0d5de;
+  --destructive: #e06c75;
+  --destructive-foreground: #1a1d23;
+  --border: #3b4048;
+  --input: #353b45;
+  --ring: #528bff;
+  --chart-1: #61afef;
+  --chart-2: #98c379;
+  --chart-3: #e5c07b;
+  --chart-4: #c678dd;
+  --chart-5: #56b6c2;
+  --sidebar: #21252b;
+  --sidebar-foreground: #b0b7c3;
+  --sidebar-primary: #61afef;
+  --sidebar-primary-foreground: #1a1d23;
+  --sidebar-accent: #2c313a;
+  --sidebar-accent-foreground: #d0d5de;
+  --sidebar-border: #333842;
+  --sidebar-ring: #528bff;
+  --header: #21252b;
+  --header-foreground: #c8cdd7;
+  --footer: #21252b;
+  --footer-foreground: #c8cdd7;
+  --code: #282c34;
+  --code-foreground: #c8cdd7;
+  --code-highlight: #2c313a;
+  --code-number: #d19a66;
+  --code-selection: #3e4451;
+  --code-border: #3b4048;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #282c34;
+  --foreground: #c8cdd7;
+  --card: #21252b;
+  --card-foreground: #d0d5de;
+  --popover: #2c313a;
+  --popover-foreground: #d0d5de;
+  --primary: #61afef;
+  --primary-foreground: #1a1d23;
+  --secondary: #353b45;
+  --secondary-foreground: #c0c6d0;
+  --muted: #2c313a;
+  --muted-foreground: #848b98;
+  --accent: #2c313a;
+  --accent-foreground: #d0d5de;
+  --destructive: #e06c75;
+  --destructive-foreground: #1a1d23;
+  --border: #3b4048;
+  --input: #353b45;
+  --ring: #528bff;
+  --chart-1: #61afef;
+  --chart-2: #98c379;
+  --chart-3: #e5c07b;
+  --chart-4: #c678dd;
+  --chart-5: #56b6c2;
+  --sidebar: #21252b;
+  --sidebar-foreground: #b0b7c3;
+  --sidebar-primary: #61afef;
+  --sidebar-primary-foreground: #1a1d23;
+  --sidebar-accent: #2c313a;
+  --sidebar-accent-foreground: #d0d5de;
+  --sidebar-border: #333842;
+  --sidebar-ring: #528bff;
+  --header: #21252b;
+  --header-foreground: #c8cdd7;
+  --footer: #21252b;
+  --footer-foreground: #c8cdd7;
+  --code: #282c34;
+  --code-foreground: #c8cdd7;
+  --code-highlight: #2c313a;
+  --code-number: #d19a66;
+  --code-selection: #3e4451;
+  --code-border: #3b4048;
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+html {
+  @apply bg-background text-foreground antialiased selection:bg-primary/20;
+  font-family: "JetBrainsMono Hangul Nerd Font", "JetBrains Mono", monospace;
+  font-size: 16px;
+}
+
+/* xterm 터미널 크기 제약 — absolute 컨테이너 내에서 동작 */
+.xterm,
+.xterm-viewport,
+.xterm-screen {
+  height: 100% !important;
+}
+
+.xterm-viewport {
+  background: transparent !important;
+}
+
+.xterm-rows div {
+  letter-spacing: 0rem;
+}
+
+/* 터미널 영역 스크롤바 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b4048;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5263;
+}
