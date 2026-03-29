@@ -1,5 +1,6 @@
 import type { ConnectionInfo } from "@/components/terminal/use-terminal"
 import type { ConnectionProfile } from "@/lib/profile-store"
+import type { FormEvent } from "react"
 
 import NiceModal, { useModal } from "@ebay/nice-modal-react"
 import { Trash2Icon } from "lucide-react"
@@ -67,7 +68,7 @@ export const SshDialog = NiceModal.create(({ onConnect }: SshDialogProps) => {
     })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const info: ConnectionInfo = {
       serverUrl,

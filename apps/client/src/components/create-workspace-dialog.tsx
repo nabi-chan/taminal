@@ -1,3 +1,5 @@
+import type { FormEvent } from "react"
+
 import NiceModal, { useModal } from "@ebay/nice-modal-react"
 import { useState } from "react"
 
@@ -16,7 +18,7 @@ export const CreateWorkspaceDialog = NiceModal.create(({ onCreated }: CreateWork
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!name.trim()) return
     const id = createWorkspace(name.trim(), description.trim())

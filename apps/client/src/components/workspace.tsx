@@ -110,7 +110,8 @@ export function Workspace() {
             )}
             onClick={() => setActiveTab(workspace.id, tab.id)}>
             <TabLabel tab={tab} workspaceId={workspace.id} isActive={tab.id === workspace.activeTabId} />
-            <span
+            <button
+              type="button"
               className={cn(
                 "hover:bg-muted -mr-1 flex h-4 w-4 items-center justify-center rounded-sm transition-opacity",
                 tab.id === workspace.activeTabId
@@ -122,7 +123,7 @@ export function Workspace() {
                 removeTab(workspace.id, tab.id)
               }}>
               <XIcon className="h-3 w-3" />
-            </span>
+            </button>
           </button>
         ))}
         <Button

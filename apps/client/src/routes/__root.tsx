@@ -1,4 +1,5 @@
 import type { TRPCRouter } from "@/integrations/trpc/router"
+import type { ReactNode } from "react"
 
 import NiceModal from "@ebay/nice-modal-react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
@@ -40,7 +41,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   }),
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
