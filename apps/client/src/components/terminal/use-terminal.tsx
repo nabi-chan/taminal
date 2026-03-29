@@ -49,9 +49,10 @@ export function useTerminal(options: UseTerminalOptions) {
 
   const writeToTerminal = useCallback((data: string) => {
     if (terminalRef.current && readyRef.current) {
-      // replacement character(U+FFFD) 제거
-      const filtered = data.replaceAll("\uFFFD", "")
-      if (filtered) terminalRef.current.write(filtered)
+      // escape sequence 밖의 replacement character(U+FFFD)만 공백으로 대체
+      // eslint-disable-next-line no-control-regex
+      const filtered = data.replace(/\uFFFD(?![^\x1b]*[\x40-\x7e])/g, " ")
+      terminalRef.current.write(filtered)
     }
   }, [])
 
