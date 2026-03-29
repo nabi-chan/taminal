@@ -1,0 +1,12 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+autoInstallPeers: true
+
+onlyBuiltDependencies:
+  - ssh2
+  - cpu-features
+  - esbuild
+  - lightningcss
+  - better-sqlite3

@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build
+build/
+*.tsbuildinfo
+
+# Environment variables
+.env*
+!.env.example
+
+# Output
+.turbo/
+.tanstack/

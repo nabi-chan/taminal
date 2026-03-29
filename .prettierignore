@@ -1,0 +1,6 @@
+# Lock files
+pnpm-lock.yaml
+
+# Generated files
+routeTree.gen.ts
+generated/
