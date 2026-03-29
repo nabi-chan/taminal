@@ -24,6 +24,11 @@ export async function saveProfile(name: string, connectionInfo: ConnectionInfo):
   return id
 }
 
+export async function updateProfile(id: string, name: string, connectionInfo: ConnectionInfo): Promise<void> {
+  const db = await getDb()
+  await db.put(STORE_NAME, { name, connectionInfo }, id)
+}
+
 export async function removeProfile(id: string): Promise<void> {
   const db = await getDb()
   await db.delete(STORE_NAME, id)

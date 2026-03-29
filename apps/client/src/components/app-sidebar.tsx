@@ -1,9 +1,10 @@
 import NiceModal from "@ebay/nice-modal-react"
 import { useStore } from "@tanstack/react-store"
-import { FolderIcon, MoreHorizontalIcon, PencilIcon, PlusIcon, TerminalSquareIcon, Trash2Icon } from "lucide-react"
+import { FolderIcon, MoreHorizontalIcon, PencilIcon, PlusIcon, SettingsIcon, TerminalSquareIcon, Trash2Icon } from "lucide-react"
 
 import { CreateWorkspaceDialog } from "@/components/create-workspace-dialog"
 import { EditWorkspaceDialog } from "@/components/edit-workspace-dialog"
+import { SettingsDialog } from "@/components/settings-dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -129,9 +130,14 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-sidebar-border border-t">
-        <div className="text-muted-foreground px-2 py-1 text-xs group-data-[collapsible=icon]:hidden">
-          Cmd+D 분할 · Cmd+T 새 탭
-        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={() => NiceModal.show(SettingsDialog)}>
+              <SettingsIcon />
+              <span>설정</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   )
