@@ -1,0 +1,27 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=file:/app/data/taminal.db
+    networks:
+      - taminal
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    ports:
+      - "127.0.0.1:3001:3001"
+    networks:
+      - taminal
+
+networks:
+  taminal:

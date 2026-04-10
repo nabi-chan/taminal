@@ -17,7 +17,6 @@ RUN pnpm install --frozen-lockfile
 # 소스 복사
 COPY packages/protocol/ ./packages/protocol/
 COPY apps/server/ ./apps/server/
-COPY tsconfig.base.json ./
 
 # 빌드
 RUN pnpm turbo build --filter=@taminal/server
