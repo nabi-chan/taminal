@@ -95,8 +95,8 @@ export class SshSession {
       host: config.host,
       port: config.port,
       username: config.username,
-      password: config.password,
-      privateKey: config.privateKey,
+      password: config.password || undefined,
+      privateKey: config.privateKey || undefined,
     })
   }
 
